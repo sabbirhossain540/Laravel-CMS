@@ -91,7 +91,7 @@
                             </li>
 
                             <li class="list-group-item">
-                                <a href="">Category</a>
+                                <a href="{{ route('categories.index') }}">Category</a>
                             </li>
                         </ul>
                     </div>
