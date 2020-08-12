@@ -91,7 +91,7 @@
                     <div class="col-md-4">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <a href="">Post</a>
+                                <a href="{{ route('posts.index') }}">Post</a>
                             </li>
 
                             <li class="list-group-item">
