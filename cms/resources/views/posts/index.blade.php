@@ -18,12 +18,12 @@
 			</thead>
 			<tbody>
 				@foreach($posts as $post)
-				<tr>
-					<td>Image</td>
-					<td>
-						{{ $post->name }}
-					</td>
-				</tr>
+					<tr>
+						<td><img src="{{ asset($post->image) }}"></td>
+						<td>{{ $post->title }}</td>
+						<td><a href="" class="btn btn-outline-info btn-sm">Edit</a></td>
+						<td><a href="" class="btn btn-outline-danger btn-sm">Trash</a></td>
+					</tr>
 				@endforeach
 			</tbody>
 		</table>
