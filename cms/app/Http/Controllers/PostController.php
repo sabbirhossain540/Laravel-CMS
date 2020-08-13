@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\Posts\CreatePostRequest;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Post;
 
 class PostController extends Controller
@@ -109,6 +111,7 @@ class PostController extends Controller
         $post = Post::withTrashed()->where('id', $id)->firstOrFail();
 
         if($post->trashed()){
+            Storage::delete($post->image);
             $post->forceDelete();
         }else{
             $post->delete();
