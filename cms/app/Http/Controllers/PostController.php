@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\Posts\CreatePostRequest;
+
+use App\Post;
+
 class PostController extends Controller
 {
     /**
@@ -13,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index');
+        return view('posts.index')->with('posts', Post::all());
     }
 
     /**
@@ -33,8 +37,31 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        //Validation
+        $this->validate($request, [
+            'name' => 'required | unique:posts',
+            'description' => 'required',
+            'image' => 'required',
+            'content' => 'required'
+        ]);
+        //Upload Image
+        $image = $request->image->store('posts');
+
+        //Create Post
+        Post::create([
+            'name' => $request->title,
+            'description' => $request->description,
+            'content' => $request->content,
+            'image' => $image,
+            'published_at' => $request->published_at
+            
+        ]);
+
+        session()->flash('success', 'Post created successfully');
+
+        return redirect(route('posts.index'));
+        
     }
 
     /**

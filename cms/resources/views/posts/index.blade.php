@@ -10,7 +10,24 @@
 	<div class="card-header">Posts</div>
 
 	
-	<div class="card-body"></div>
+	<div class="card-body">
+		<table class="table">
+			<thead>
+				<th>Image</th>
+				<th>Title</th>
+			</thead>
+			<tbody>
+				@foreach($posts as $post)
+				<tr>
+					<td>Image</td>
+					<td>
+						{{ $post->name }}
+					</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
 </div>
 
 
