@@ -22,7 +22,15 @@
 						<td><img src="{{ asset($post->image) }}"></td>
 						<td>{{ $post->title }}</td>
 						<td><a href="" class="btn btn-outline-info btn-sm">Edit</a></td>
-						<td><a href="" class="btn btn-outline-danger btn-sm">Trash</a></td>
+						<td>
+							<form action="{{ route('posts.destroy',$post->id) }}" method="POST">
+								@csrf
+								@method('DELETE')
+								<button type="submit" class="btn btn-outline-danger btn-sm">Trash</button>
+								
+							</form>
+							
+						</td>
 					</tr>
 				@endforeach
 			</tbody>
