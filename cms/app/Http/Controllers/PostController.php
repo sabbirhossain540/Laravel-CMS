@@ -104,11 +104,31 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        $post->delete();
+        $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+
+        if($post->trashed()){
+            $post->forceDelete();
+        }else{
+            $post->delete();
+        }
         session()->flash('success', 'Post Deleted successfully');
 
         return redirect(route('posts.index'));
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function trash(){
+        $trashed = Post::withTrashed()->get();
+
+
+        return view('posts.index')->with('posts',$trashed);
     }
 }
