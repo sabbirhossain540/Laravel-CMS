@@ -26,6 +26,14 @@
 						<td>
 							<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-outline-info btn-sm">Edit</a>
 						</td>
+						@else
+						<td>
+							<form method="POST" action="{{ route('restore-posts', $post->id) }}">
+								@csrf
+								@method('PUT')
+								<button type="submit" class="btn btn-outline-info btn-sm">Restore</button>
+							</form>
+						</td>
 						@endif
 						<td>
 							<form action="{{ route('posts.destroy',$post->id) }}" method="POST">
