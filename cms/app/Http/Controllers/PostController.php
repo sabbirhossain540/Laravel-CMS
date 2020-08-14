@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Post;
 
+use App\Category;
+
 class PostController extends Controller
 {
     /**
@@ -31,7 +33,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create')->with('categories',Category::all());
     }
 
     /**
@@ -47,7 +49,8 @@ class PostController extends Controller
             'title' => 'required | unique:posts',
             'description' => 'required',
             'image' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'category' => 'required'
         ]);
         //Upload Image
         $image = $request->image->store('posts');
@@ -58,7 +61,8 @@ class PostController extends Controller
             'description' => $request->description,
             'content' => $request->content,
             'image' => $image,
-            'published_at' => $request->published_at
+            'published_at' => $request->published_at,
+            'category_id' => $request->category,
             
         ]);
 
@@ -87,7 +91,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post', $post);
+        return view('posts.create')->with('post', $post)->with('categories', Category::all());
     }
 
     /**
@@ -99,7 +103,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $data = $request->only('title', 'description','published_at','content');
+        $data = $request->only('title', 'description','published_at','content', 'category');
         //if New Image
 
         if($request->hasFile('image')){

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
 	use SoftDeletes;
-    protected $fillable = ['title', 'description', 'content', 'published_at', 'image'];
+    protected $fillable = ['title', 'description', 'content', 'published_at', 'image', 'category_id'];
 
 	/**
      * Remove the specified resource from storage.
@@ -19,6 +19,10 @@ class Post extends Model
      */
     public function deleteImage(){
     	Storage::delete($this->image);
+    }
+
+    public function category(){
+    	return $this->belongsTo(Category::class);
     }
 }
 
