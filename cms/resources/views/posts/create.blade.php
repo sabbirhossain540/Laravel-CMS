@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.css" integrity="sha512-qjOt5KmyILqcOoRJXb9TguLjMgTLZEgROMxPlf1KuScz0ZMovl0Vp8dnn9bD5dy3CcHW5im+z5gZCKgYek9MPA==" crossorigin="anonymous" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
 
 @endsection
@@ -94,7 +95,7 @@
 			@if($tags->count() > 0)
 			<div class="form-group">
 				<label for="tags">Tags</label>
-				<select name="tags[]" id="tags" class="form-control" multiple>
+				<select name="tags[]" id="tags" class="form-control tags-selector" multiple>
 					
 						@foreach($tags as $tag)
 							<option value="{{ $tag->id }}"
@@ -125,9 +126,16 @@
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
 <script type="text/javascript">
 	flatpickr('#published_at', {
 		enableTime: true
+	});
+
+
+	$(document).ready(function() {
+		$('.tags-selector').select2();
 	});
 </script>
 
