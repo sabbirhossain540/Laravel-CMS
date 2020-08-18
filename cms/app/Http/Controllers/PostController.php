@@ -14,6 +14,8 @@ use App\Post;
 
 use App\Category;
 
+use App\Tag;
+
 class PostController extends Controller
 {
     public function __construct(){
@@ -36,7 +38,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create')->with('categories',Category::all());
+        return view('posts.create')->with('categories',Category::all())->with('tags', Tag::all());
     }
 
     /**
@@ -46,7 +48,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {       
+
         //Validation
         $this->validate($request, [
             'title' => 'required | unique:posts',
@@ -59,7 +62,7 @@ class PostController extends Controller
         $image = $request->image->store('posts');
 
         //Create Post
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
             'content' => $request->content,
@@ -69,8 +72,11 @@ class PostController extends Controller
             
         ]);
 
-        session()->flash('success', 'Post created successfully');
+        if($request->tags){
+            $post->tags()->attach($request->tags);
+        }
 
+        session()->flash('success', 'Post created successfully');
         return redirect(route('posts.index'));
         
     }
@@ -94,7 +100,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post', $post)->with('categories', Category::all());
+        return view('posts.create')->with('post', $post)->with('categories', Category::all())->with('tags', Tag::all());
     }
 
     /**
@@ -120,6 +126,10 @@ class PostController extends Controller
 
             $data['image'] = $image;
 
+        }
+
+        if($request->tags){
+            $post->tags()->sync($request->tags);
         }
 
         
