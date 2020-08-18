@@ -28,3 +28,5 @@ Route::resource('posts', 'PostController')->middleware('auth');
 Route::get('trash-post', 'PostController@trash')->name('trashed-posts.index');
 
 Route::put('restore-post/{post}', 'PostController@restore')->name('restore-posts');
+
+Route::put('users', 'UserController@index')->name('user-list');
