@@ -1,7 +1,7 @@
 @extends('layouts.blogLayout')
 
 @section('title')
-    Main Page
+    {{ $category->name }}
 @endsection
 
 
@@ -13,7 +13,7 @@
         <div class="row">
           <div class="col-md-8 mx-auto">
 
-            <h1>Latest Blog Posts</h1>
+            <h1>Category Name: {{ $category->name }}</h1>
             <p class="lead-2 opacity-90 mt-6">Read and get updated on how we progress</p>
 
           </div>
@@ -43,7 +43,7 @@
                             <a href="{{ route('welcome.show', $post->id) }}"><img class="card-img-top" src="{{ asset($post->image) }}" alt="Card image cap"></a>
                             <div class="p-6 text-center">
                                 <p>
-                                    <a class="small-5 text-lighter text-uppercase ls-2 fw-400" href="#">
+                                    <a class="small-5 text-lighter text-uppercase ls-2 fw-400" href="{{ route('welcome.category',$post->category->id ) }}">
                                       {{ $post->category->name }}
                                   </a>
                                 </p>
@@ -93,7 +93,7 @@
                 <h6 class="sidebar-title">Categories</h6>
                 <div class="row link-color-default fs-14 lh-24">
                   @foreach($categories as $categorie)
-                    <div class="col-6"><a href="{{ route('welcome.category', $categorie->id) }}">{{ $categorie->name }}</a></div>
+                    <div class="col-6"><a href="#">{{ $categorie->name }}</a></div>
                   @endforeach
                   
                 </div>

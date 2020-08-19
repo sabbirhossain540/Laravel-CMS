@@ -13,6 +13,7 @@
 
 Route::get('/', 'WelcomeController@index')->name('welcome.index');
 Route::get('/singlePost/{post}', 'WelcomeController@show')->name('welcome.show');
+Route::get('/categoryWisePost/{category}', 'WelcomeController@categoryWisePost')->name('welcome.category');
 
 Auth::routes();
 

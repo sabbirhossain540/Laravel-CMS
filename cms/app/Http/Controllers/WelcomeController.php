@@ -31,4 +31,13 @@ class WelcomeController extends Controller
     public function show(Post $post){
     	return view('singlePost')->with('post', $post);
     }
+
+
+    public function categoryWisePost(Category $category){
+    	return view('categoryWisePost')->with('category', $category)->with('categories', Category::all())->with('tags', Tag::all())->with('posts', $category->posts()->paginate(2));
+    }
+
+    public function tagWisePost(Tag $tag){
+    	return view('tagWisePost')->with('tags', $tag)->with('categories', Category::all())->with('tags', Tag::all())->with('posts', $tag->posts()->paginate(2));
+    }
 }
