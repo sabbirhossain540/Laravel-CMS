@@ -24,11 +24,21 @@
 				@foreach($users as $user)
 					<tr>
 						<td><img src="{{ asset('storage/app/public/')}}"></td>
-						<td>{{ $post->name }}</td>
+						<td>{{ $user->name }}</td>
 						<td>
-							{{ $post->category->email }}
+							{{ $user->email }}
 							
 						</td>
+
+                        <td>
+                        @if(!$user->isAdmin())
+                            <form action="{{ route('user.make-admin',$user->id) }}" method="POST">
+                                 @csrf
+                                <button type="submit" class="btn btn-success btn-sm">Make Admin</button>
+                            </form>
+                            
+                        @endif
+                        </td>
 
 					</tr>
 				@endforeach

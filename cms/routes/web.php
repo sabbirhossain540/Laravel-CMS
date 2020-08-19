@@ -29,4 +29,10 @@ Route::get('trash-post', 'PostController@trash')->name('trashed-posts.index');
 
 Route::put('restore-post/{post}', 'PostController@restore')->name('restore-posts');
 
-Route::put('users', 'UserController@index')->name('user-list');
+
+
+
+Route::middleware(['auth', 'admin'])->group(function(){
+    Route::get('users', 'UserController@index')->name('users.index');
+    Route::POST('users/{id}/make-admin', 'UserController@makeAdmin')->name('user.make-admin');
+});
