@@ -35,29 +35,35 @@
 
             <div class="col-md-8 col-xl-9">
               <div class="row gap-y">
-                @foreach($posts as $post)
+                @if($posts->count() > 0)
+                    @foreach($posts as $post)
 
-                    <div class="col-md-6">
-                      <div class="card border hover-shadow-6 mb-6 d-block">
-                        <a href="{{ route('welcome.show', $post->id) }}"><img class="card-img-top" src="{{ asset($post->image) }}" alt="Card image cap"></a>
-                        <div class="p-6 text-center">
-                            <p>
-                                <a class="small-5 text-lighter text-uppercase ls-2 fw-400" href="#">
-                                  {{ $post->category->name }}
-                              </a>
-                            </p>
-                          
-                          <h5 class="mb-0"><a class="text-dark" href="{{ route('welcome.show', $post->id) }}"><a href="">{{ $post->title }}</a></h5>
+                        <div class="col-md-6">
+                          <div class="card border hover-shadow-6 mb-6 d-block">
+                            <a href="{{ route('welcome.show', $post->id) }}"><img class="card-img-top" src="{{ asset($post->image) }}" alt="Card image cap"></a>
+                            <div class="p-6 text-center">
+                                <p>
+                                    <a class="small-5 text-lighter text-uppercase ls-2 fw-400" href="#">
+                                      {{ $post->category->name }}
+                                  </a>
+                                </p>
+                              
+                              <h5 class="mb-0"><a class="text-dark" href="{{ route('welcome.show', $post->id) }}"><a href="">{{ $post->title }}</a></h5>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
 
-                @endforeach
+                    @endforeach
+                @else
+                    <h4 class="text-center">No result Found</h4>
+
+                @endif
 
               </div>
 
 
-              {{ $posts->links() }}
+              <!-- {{ $posts->links() }}  *** Normal Pagination -->
+              {{ $posts->appends([request()->query('search')])->links() }}
 
 
               <!-- <nav class="flexbox mt-30">
@@ -75,8 +81,8 @@
               <div class="sidebar px-4 py-md-0">
 
                 <h6 class="sidebar-title">Search</h6>
-                <form class="input-group" target="#" method="GET">
-                  <input type="text" class="form-control" name="s" placeholder="Search">
+                <form class="input-group"  method="GET" action="{{ route('welcome.index') }}">
+                  <input type="text" class="form-control" name="search" placeholder="Search" value="{{request()->query('search') }}">
                   <div class="input-group-addon">
                     <span class="input-group-text"><i class="ti-search"></i></span>
                   </div>
