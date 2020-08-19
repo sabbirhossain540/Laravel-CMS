@@ -2,8 +2,10 @@
 use App\Post;
 use App\Category;
 use App\Tag;
+use App\User;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class PostsTableSeeder extends Seeder
 {
@@ -26,12 +28,27 @@ class PostsTableSeeder extends Seeder
         	'name' => 'Partnership'
         ]);
 
+        $author1 = User::create([
+            'name' => 'John Doe',
+            'email' => 'john@gmail.com',
+            'role' => 'writer',
+            'password' => Hash::make('12345678')
+        ]);
+
+        $author2 = User::create([
+            'name' => 'David Smith',
+            'email' => 'smith@gmail.com',
+            'role' => 'writer',
+            'password' => Hash::make('12345678')
+        ]);
+
         $post1 = Post::create([
         	'title' => 'TheSaaS is an elegant',
         	'description' => 'TheSaaS is an elegant, modern and fully customizable SaaS and WebApp template powered by Bootstrap 4',
         	'content' => 'TheSaaS is an elegant, modern and fully customizable SaaS and WebApp template powered by Bootstrap 4',
         	'category_id' => $category1->id,
-        	'image' => 'img/11.jpg'
+        	'image' => 'img/11.jpg',
+            'user_id' => $author1->id
         ]);
 
         $post2 = Post::create([
@@ -39,7 +56,8 @@ class PostsTableSeeder extends Seeder
         	'description' => 'TheSaaS is an elegant, modern and fully customizable SaaS and WebApp template powered by Bootstrap 4',
         	'content' => 'TheSaaS is an elegant, modern and fully customizable SaaS and WebApp template powered by Bootstrap 4',
         	'category_id' => $category2->id,
-        	'image' => 'img/12.jpg'
+        	'image' => 'img/12.jpg',
+            'user_id' => $author1->id
 
         ]);
 
@@ -48,7 +66,8 @@ class PostsTableSeeder extends Seeder
         	'description' => 'TheSaaS is an elegant, modern and fully customizable SaaS and WebApp template powered by Bootstrap 4',
         	'content' => 'TheSaaS is an elegant, modern and fully customizable SaaS and WebApp template powered by Bootstrap 4',
         	'category_id' => $category1->id,
-        	'image' => 'img/10.jpg'
+        	'image' => 'img/10.jpg',
+            'user_id' => $author2->id
         ]);
 
         $post4 = Post::create([
@@ -56,7 +75,8 @@ class PostsTableSeeder extends Seeder
         	'description' => 'TheSaaS is an elegant, modern and fully customizable SaaS and WebApp template powered by Bootstrap 4',
         	'content' => 'TheSaaS is an elegant, modern and fully customizable SaaS and WebApp template powered by Bootstrap 4',
         	'category_id' => $category3->id,
-        	'image' => 'img/15.jpg'
+        	'image' => 'img/15.jpg',
+            'user_id' => $author1->id
         ]);
 
 

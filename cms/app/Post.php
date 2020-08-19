@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class Post extends Model
 {
 	use SoftDeletes;
-    protected $fillable = ['title', 'description', 'content', 'published_at', 'image', 'category_id'];
+    protected $fillable = ['title', 'description', 'content', 'published_at', 'image', 'category_id', 'user_id'];
 
 	/**
      * Remove the specified resource from storage.
@@ -27,6 +28,10 @@ class Post extends Model
 
     public function tags(){
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
 
